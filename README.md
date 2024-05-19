@@ -10,4 +10,6 @@ This repository contains the code for the final project of SKI2112.
   ```math
 v_{av}=\int^{t_f}_{t_i}dt\cdot a(t)
 ```
-
+<ul>
+ <li>the function return_stats() returns the maximum value, the median, the standard deviation and the 85% of the maximum value</li>
+</ul>
