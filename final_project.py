@@ -4,6 +4,13 @@ import scipy
 import math
 import matplotlib.pyplot as plt
 
+#Testing
+# test_data='walkie.csv'
+# data=pd.read_csv(test_data)
+# latitude=data["Latitude"].to_numpy()
+# longitude=data['Longitude'].to_numpy()
+# speed=data['Speed (m/s)'].to_numpy()
+
 
 def getDistance(lat1,lon1,lat2,lon2):
     # This uses the haversine formula, which remains a good numberical computation,
@@ -26,6 +33,9 @@ def getDistance(lat1,lon1,lat2,lon2):
     return d
 
 def gps_distance(latitude,longitude):
+    #removing zeros from latitude and longitude data
+    latitude=np.trim_zeros(latitude)
+    longitude=np.trim_zeros(latitude)
     total_distance = 0
     for i in range(len(latitude)-1):
         d = getDistance(latitude[i],longitude[i],latitude[i+1],longitude[i+1])
@@ -38,6 +48,15 @@ def average_speed(total_acceleration,time):
     #v_avg=1/(t_final-t_initial)*int^(t_final)_(t_initial)(total_acceleration)dt
     v_avg=1/(time[len(time)-1]-time[0])*scipy.integrate.simpson(total_acceleration,time)
     return v_avg
+
+def return_stats(data):
+    #get some statistical values
+    data=np.trim_zeros(data)
+    max_val = np.max(data)
+    median_val = np.median(data)
+    sd=np.std(data)
+    val_85 = max_val*0.85
+    return(max_val,median_val,sd,val_85);
 
 
 
