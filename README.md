@@ -8,6 +8,6 @@ This repository contains the code for the final project of SKI2112.
  </ul>
 
   ```math
-v_{av}=\int^{t_f}_{t_i}dt a(t)
+v_{av}=\int^{t_f}_{t_i}dt\cdot a(t)
 ```
 
