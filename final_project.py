@@ -4,12 +4,17 @@ import scipy
 import math
 import matplotlib.pyplot as plt
 
-#Testing
-# test_data='walkie.csv'
+# Testing
+# test_data='Test_data/bike Beek station.csv'
 # data=pd.read_csv(test_data)
 # latitude=data["Latitude"].to_numpy()
 # longitude=data['Longitude'].to_numpy()
 # speed=data['Speed (m/s)'].to_numpy()
+# time=data["time"].to_numpy()
+# ax=data["ax"].to_numpy()
+# ay=data["ay"].to_numpy()
+# az=data["az"].to_numpy()
+# a=np.sqrt(ax**2+ay**2+az**2)
 
 
 def getDistance(lat1,lon1,lat2,lon2):
@@ -43,20 +48,23 @@ def gps_distance(latitude,longitude):
     return(total_distance)
     
 
-def average_speed(total_acceleration,time):
-    #To calculate the average speed, we can use the integral-mean theorem:
-    #v_avg=1/(t_final-t_initial)*int^(t_final)_(t_initial)(total_acceleration)dt
-    v_avg=1/(time[len(time)-1]-time[0])*scipy.integrate.simpson(total_acceleration,time)
-    return v_avg
+def average_speed(total_distance,total_time):
+    return (total_distance/total_time)
 
 def return_stats(data):
     #get some statistical values
+    av=np.average(data)
     data=np.trim_zeros(data)
     max_val = np.max(data)
     median_val = np.median(data)
     sd=np.std(data)
     val_85 = max_val*0.85
-    return(max_val,median_val,sd,val_85);
+    return(av,max_val,median_val,sd,val_85);
+
+
+
+
+
 
 
 
