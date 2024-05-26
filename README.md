@@ -2,14 +2,4 @@
 This repository contains the code for the final project of SKI2112.
 
 
-<ul>
- <li>The function gps_distance() calculates the total distance of the journey, starting from the GPS coordinates</li> 
-  <li>The function average_speed() calculates the average speed:</li>
- </ul>
-
-  ```math
-v_{av}=\int^{t_f}_{t_i}dt\cdot a(t)
-```
-<ul>
- <li>the function return_stats() returns the maximum value, the median, the standard deviation and the 85% of the maximum value</li>
-</ul>
+The algorithm is based on the work of Rasmussen et al., Improved methods to deduct trip legs and mode from travel surveys using wearable GPS devices: A case study from the Greater Copenhagen area, 2015
