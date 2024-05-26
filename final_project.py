@@ -5,18 +5,6 @@ import math
 import matplotlib.pyplot as plt
 
 
-def moving_median_keep_ends(signal, window=3):
-    assert window % 2 != 0, "Give an odd number for the window"
-    smoothed = np.zeros_like(signal)
-    for i, point in enumerate(signal):
-        if i < window // 2 + 1:
-            smoothed[i] = np.median(signal[: i + window // 2 + 1])
-        elif len(smoothed) - i < window // 2 + 1:
-            smoothed[i] = np.median(signal[i - window // 2 - 1:])
-        else:
-            smoothed[i] = np.median(signal[i - window // 2 - 1:i + window // 2 + 1 ])
-    return smoothed
-
 def getDistance(lat1,lon1,lat2,lon2):
     # This uses the haversine formula, which remains a good numberical computation,
     # even at small distances, unlike the Shperical Law of Cosines.
@@ -50,6 +38,13 @@ def gps_distance(latitude,longitude):
 
 def average_speed(total_distance,total_time):
     return (total_distance/total_time)
+
+def remove_outliers(data,thr=1.5):
+    #removing outlier using IQR ranges
+    Q1=np.percentile(data, 25)
+    Q3=np.percentile(data, 75)
+    IQR=Q3-Q1
+    return data[(data >= Q1-thr*IQR) & (data<Q3+IQR)]
 
 def return_stats(data):
     #get some statistical values
@@ -98,24 +93,24 @@ def mode_of_transport(p95_speed,p95_acc,median_speed):
                 return'walk'
                 
         
-# Testing
-# test_data='Test_data/test2.csv'
-# data=pd.read_csv(test_data)
-# latitude=data["Latitude"].to_numpy()
-# longitude=data['Longitude'].to_numpy()
-# speed=data['Speed (m/s)'].to_numpy()
-# time=data["time"].to_numpy()
-# ax=data["ax"].to_numpy()
-# ay=data["ay"].to_numpy()
-# az=data["az"].to_numpy()
-# a=np.sqrt(ax**2+ay**2)
+#Testing
+test_data='Test_data/walkie.csv'
+data=pd.read_csv(test_data)
+latitude=data["Latitude"].to_numpy()
+longitude=data['Longitude'].to_numpy()
+speed=data['Speed (m/s)'].to_numpy()
+time=data["time"].to_numpy()
+ax=data["ax"].to_numpy()
+ay=data["ay"].to_numpy()
+az=data["az"].to_numpy()
+a=np.sqrt(ax**2+ay**2)
 
-
-# median_acc,p95_acc=return_stats(a)
-# median_speed,p95_speed=return_stats(speed)
-# print(mode_of_transport(p95_speed, p95_acc, median_speed))
+a_filter=remove_outliers(a)
+speed_filter=remove_outliers(speed)
+median_acc,p95_acc=return_stats(a_filter)
+median_speed,p95_speed=return_stats(speed_filter)
+print(mode_of_transport(p95_speed, p95_acc, median_speed))
    
-# plt.plot(a)
 
 
 
