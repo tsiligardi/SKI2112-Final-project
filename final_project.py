@@ -36,9 +36,6 @@ def gps_distance(latitude,longitude):
     return(total_distance)
     
 
-def average_speed(total_distance,total_time):
-    return (total_distance/total_time)
-
 def remove_outliers(data,thr=1.5):
     #removing outlier using IQR ranges
     Q1=np.percentile(data, 25)
