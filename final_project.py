@@ -92,24 +92,45 @@ def mode_of_transport(p95_speed,p95_acc,median_speed):
             else:
                 return'walk'
                 
+def transport_no_acc(p95_speed,median_speed):
+        if (median_speed>=8.5):
+            return 'car'
+        elif (median_speed >=6):
+            if p95_speed>=8.5:
+                return 'bus or car'
+            else:
+                return 'car or bike'
+        elif (median_speed>=2):
+            if p95_speed >= 8.5:
+                return 'bus'
+            elif p95_speed>=2.5:
+                return 'car or bike'
+            else:
+                return 'walk'
+        else:
+            if p95_speed<2.5:
+                return'walk'
+            else:
+                return 'bike'   
         
 #Testing
-test_data='Test_data/walkie.csv'
-data=pd.read_csv(test_data)
-latitude=data["Latitude"].to_numpy()
-longitude=data['Longitude'].to_numpy()
-speed=data['Speed (m/s)'].to_numpy()
-time=data["time"].to_numpy()
-ax=data["ax"].to_numpy()
-ay=data["ay"].to_numpy()
-az=data["az"].to_numpy()
-a=np.sqrt(ax**2+ay**2)
+# test_data='Test_data/walkie.csv'
+# data=pd.read_csv(test_data)
+# latitude=data["Latitude"].to_numpy()
+# longitude=data['Longitude'].to_numpy()
+# speed=data['Speed (m/s)'].to_numpy()
+# time=data["time"].to_numpy()
+# ax=data["ax"].to_numpy()
+# ay=data["ay"].to_numpy()
+# az=data["az"].to_numpy()
+# a=np.sqrt(ax**2+ay**2)
 
-a_filter=remove_outliers(a)
-speed_filter=remove_outliers(speed)
-median_acc,p95_acc=return_stats(a_filter)
-median_speed,p95_speed=return_stats(speed_filter)
-print(mode_of_transport(p95_speed, p95_acc, median_speed))
+# a_filter=remove_outliers(a)
+# speed_filter=remove_outliers(speed)
+# median_acc,p95_acc=return_stats(a_filter)
+# median_speed,p95_speed=return_stats(speed_filter)
+# print(mode_of_transport(p95_speed, p95_acc, median_speed))
+# print(transport_no_acc(p95_speed, median_speed))
    
 
 
