@@ -6,9 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def getDistance(lat1,lon1,lat2,lon2):
-    # This uses the haversine formula, which remains a good numberical computation,
-    # even at small distances, unlike the Shperical Law of Cosines.
-    # This method has ~0.3% error built in.
+    # This uses the haversine formula
     R = 6371 # Radius of Earth in km
 
     dLat = math.radians((lat2) - (lat1))
@@ -111,7 +109,8 @@ def transport_no_acc(p95_speed,median_speed):
                 return 'bike'   
         
 #Testing
-# test_data='Test_data/walkie.csv'
+
+# test_data='Test_data/beek station bike 2.csv'
 # data=pd.read_csv(test_data)
 # latitude=data["Latitude"].to_numpy()
 # longitude=data['Longitude'].to_numpy()
@@ -126,8 +125,11 @@ def transport_no_acc(p95_speed,median_speed):
 # speed_filter=remove_outliers(speed)
 # median_acc,p95_acc=return_stats(a_filter)
 # median_speed,p95_speed=return_stats(speed_filter)
+
 # print(mode_of_transport(p95_speed, p95_acc, median_speed))
 # print(transport_no_acc(p95_speed, median_speed))
+# print(gps_distance(latitude, longitude))
+
    
 
 
